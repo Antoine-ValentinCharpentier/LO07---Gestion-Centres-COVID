@@ -27,6 +27,8 @@ $args = $param;
 switch ($action) {
 	//les vaccins
 	case 'vaccinReadAll':
+	case 'vaccinCreate':
+	case 'vaccinCreated':
 		ControllerVaccin::$action($args);
   		break;
 
