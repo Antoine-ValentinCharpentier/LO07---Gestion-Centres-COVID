@@ -59,6 +59,24 @@ class ModelVaccin {
     }
   }
 
+  //fonction qui retourne le vaccin avec un label précis
+  public static function getVaccinByLabel($label) {
+    try {
+      $database = Model::getInstance();
+      $query = "select * from vaccin where label = :label";
+      $statement = $database->prepare($query);
+      $statement->execute([
+        'label' => $label
+      ]);
+      $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelVaccin");
+
+      return $results;
+    } catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return NULL;
+    }
+  }
+
   //permet d'insérer un nouveau tuple vaccin dans la table vaccin
   public static function insert($label, $doses) {
     try {
@@ -79,13 +97,56 @@ class ModelVaccin {
         'label' => $label,
         'doses' => $doses
       ]);
-      return $id;
-    } catch (PDOException $e) {
+
+      //on le récupère pour pouvoir l'afficher
+      $results = ModelVaccin::getVaccinByLabel($label);
+
+      return $results;
+    }catch (PDOException $e) {
       printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
       return -1;
     }
   }
 
+  //fonction qui retourne l'ensemble des labels
+  public static function getAllLabel() {
+    try {
+      $database = Model::getInstance();
+      $query = "select label from vaccin";
+      $statement = $database->prepare($query);
+      $statement->execute();
+      $results = $statement->fetchAll(PDO::FETCH_COLUMN, 0);
+      return $results;
+    }catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return NULL;
+    }
+  }
+
+  //fonction qui permet de mettre a jour le nombre de doses d'un vaccin
+  public static function update($label,$doses) {
+    try {
+      //on mets a jour le nombre de dose d'un vaccin
+      $database = Model::getInstance();
+
+      $query = "update vaccin set doses = :doses where label = :label";
+      $statement = $database->prepare($query);
+      $statement->execute([
+        'doses' => $doses,
+        'label' => $label
+      ]);
+
+      //on le récupère pour pouvoir l'afficher
+      $results = ModelVaccin::getVaccinByLabel($label);
+
+      //on return le vaccin modifié
+      return $results;
+    }catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return -1;
+    }
+  }
+  
 }
 ?>
 <!-- ----- fin ModelVaccin -->

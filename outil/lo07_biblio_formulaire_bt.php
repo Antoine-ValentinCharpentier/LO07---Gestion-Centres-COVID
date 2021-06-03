@@ -56,8 +56,15 @@ function form_select($label, $name, $multiple, $size, $liste) {
         echo (" <select class='form-control' name='$name' size='$size'>");
     }
     
+    //le compteur $i permet de sélectionné la première valeur de la liste des options
+    $i = 0;
     foreach($liste as $value_option){
-        echo ("<option value='$value_option'>$value_option</option>");
+        if($i == 0){
+            echo ("<option value='$value_option' selected>$value_option</option>");
+        }else{
+            echo ("<option value='$value_option'>$value_option</option>");
+        }
+        $i++;
     }
     echo (" </select>");
     echo ("</div>");
