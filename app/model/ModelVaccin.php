@@ -82,6 +82,14 @@ class ModelVaccin {
     try {
       $database = Model::getInstance();
 
+      //on regarde d'abord s'il n'y a pas déjà ce label pour un vaccin existant
+      $query = "select * from vaccin where label= '$label'";
+      $statement = $database->query($query);
+      $nb_tuple = $statement->rowCount();
+      if($nb_tuple != 0){
+        return -1;
+      }
+
       // recherche de la valeur de la clé = max(id) + 1
       $query = "select max(id) from vaccin";
       $statement = $database->query($query);
