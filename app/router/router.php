@@ -3,6 +3,7 @@
 <?php
 require ('../controller/ControllerAccueil.php');
 require ('../controller/ControllerVaccin.php');
+require ('../controller/ControllerCentre.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -25,13 +26,20 @@ $args = $param;
 
 // --- Liste des méthodes autorisées
 switch ($action) {
-	//les vaccins
+	//gestion des vaccins
 	case 'vaccinReadAll':
 	case 'vaccinCreate':
 	case 'vaccinCreated':
 	case 'vaccinUpdate':
 	case 'vaccinUpdated':
 		ControllerVaccin::$action($args);
+  		break;
+
+  	//gestion des centres
+	case 'centreReadAll':
+	case 'centreCreate':
+	case 'centreCreated':
+		ControllerCentre::$action($args);
   		break;
 
 	// Tache par défaut
