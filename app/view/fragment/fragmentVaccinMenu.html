@@ -34,7 +34,17 @@
           <li><a href="router.php?action=patientCreate">Ajout d'un patient</a></li>
           <li><a href="router.php?action=patientReadAll">Liste des patients</a></li>    
         </ul>
-      </li>             
+      </li>
+      <!-- quatrième rubrique du menu : Gestion de stocks-->
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+           aria-haspopup="true" aria-expanded="false">Gestion des stocks<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="router.php?action=stockCentre">liste des centre avec le nombre de dose de chaque vaccins</a></li>
+          <li><a href="router.php?action=stockGlobal">Nombre global de doses des centres</a></li>
+          <li><a href="router.php?action=stockInsertDose">Attribution de vaccins pour un centre</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </nav>
