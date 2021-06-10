@@ -8,7 +8,7 @@ if (!defined('DEBUG')) {
 }
 
 // Configuration de la base de données
-$databaseName = "bourelre";
+$databaseName = "charpen6";
 $username = 'root';
 $password = '';
 $dsn = 'mysql:dbname='.$databaseName.';host=localhost;charset=utf8';

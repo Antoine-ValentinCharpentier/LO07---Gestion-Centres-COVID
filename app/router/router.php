@@ -56,6 +56,7 @@ switch ($action) {
     case 'stockCentre':
 	case 'stockGlobal':
 	case 'stockInsertDose':
+	case 'stockInsertedDose':
         ControllerStock::$action($args);
         break;
 
