@@ -22,7 +22,7 @@ require ($root . '/outil/lo07_biblio_formulaire_bt.php');
       form_input_hidden('action','stockInsertedDose');
       
       //champ de sélection parmit les différents centres
-      form_select_centre('Nom du centre', 'idCentre', '', 4, $listeCentre);
+      form_select_table('Nom du centre', 'idCentre', '', 4, $listeCentre);
 
       //champ de saisit pour chaque autre vaccin
       foreach ($listeVaccin as $vaccin) {

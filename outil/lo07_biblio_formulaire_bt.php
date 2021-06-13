@@ -70,9 +70,8 @@ function form_select($label, $name, $multiple, $size, $liste) {
     echo ("</div>");
 }
 
-//génère un menu sélect a partir d'une liste de centre
-function form_select_centre($label, $name, $multiple, $size, $liste) {
-    //remarque, on affiche a la fois le nom d ucentre et son adresse, car il peut y avoir deux centres avec le meme nom mais pas la meme adresse car il n'y a pas de contrainte UNIQUE dans la base de données. On mets en value l'id du centre pour ne pas devoir essayer d'isoler par la suite le nom de l'adresse et modifier les stock directement avec l'id du centre.
+//génère un menu sélect a partir d'une liste d'objet (provenant d'une table)
+function form_select_table($label, $name, $multiple, $size, $liste) {
     echo ("<div class='form-group'>");
     echo (" <label for='$label'>$label</label>");
     
@@ -82,13 +81,13 @@ function form_select_centre($label, $name, $multiple, $size, $liste) {
         echo (" <select class='form-control' name='$name' size='$size'>");
     }
     
-    //le compteur $i permet de sélectionné la première valeur de la liste des options
+    //le compteur $i permet de sélectionné la première valeur de la liste
     $i = 0;
-    foreach($liste as $value_option){
+    foreach($liste as $item){
         if($i == 0){
-            echo ("<option value='".$value_option->getId()."' selected>".$value_option->getLabel()." (".$value_option->getAdresse().")"."</option>");
+            echo '<option value="'.$item->getId().'" selected>'.implode(" : ", (array)($item)).'</option>';
         }else{
-            echo ("<option value='".$value_option->getId()."'>".$value_option->getLabel()." (".$value_option->getAdresse().")"."</option>");
+            echo '<option value="'.$item->getId().'">'.implode(" : ", (array)($item)).'</option>';
         }
         $i++;
     }

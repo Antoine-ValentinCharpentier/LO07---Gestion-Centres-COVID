@@ -6,6 +6,7 @@ require ('../controller/ControllerVaccin.php');
 require ('../controller/ControllerCentre.php');
 require ('../controller/ControllerPatient.php');
 require ('../controller/ControllerStock.php');
+require ('../controller/ControllerRDV.php');
 
 
 // --- récupération de l'action passée dans l'URL
@@ -58,6 +59,11 @@ switch ($action) {
 	case 'stockInsertDose':
 	case 'stockInsertedDose':
         ControllerStock::$action($args);
+        break;
+
+    case 'rdvSelectPatient':
+    case 'rdvSelectedPatient':
+		ControllerRDV::$action($args);
         break;
 
 	// Tache par défaut
