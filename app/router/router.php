@@ -7,7 +7,7 @@ require ('../controller/ControllerCentre.php');
 require ('../controller/ControllerPatient.php');
 require ('../controller/ControllerStock.php');
 require ('../controller/ControllerRDV.php');
-
+require ('../controller/ControllerInnovation.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -61,12 +61,19 @@ switch ($action) {
         ControllerStock::$action($args);
         break;
 
+    //gestion des stock
     case 'rdvSelectPatient':
     case 'rdvSelectedPatient':
     case 'rdvSelectedCentre':
 		ControllerRDV::$action($args);
         break;
 
+    //mes innovations
+    case 'innovationSelectCentre':
+   	case 'innovation1Classement':
+    	ControllerInnovation::$action($args);
+    	break;
+    	
 	// Tache par défaut
 	default:
 		$action = "vaccinAccueil";
