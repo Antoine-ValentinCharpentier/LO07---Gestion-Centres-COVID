@@ -77,7 +77,11 @@ switch ($action) {
     	ControllerInnovation::$action($args);
     	break;
 
+    //documentation
     case 'documentationAvis':
+    case 'documentationInnovation1':
+    case 'documentationInnovation2':
+    case 'documentationInnovation3':
     	ControllerDocumentation::$action($args);
     	break;
 

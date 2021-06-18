@@ -6,18 +6,15 @@ require_once '../model/ModelInnovation.php';
 class ControllerInnovation {
   
 	public static function innovationSelectCentre($args) {
+		//on regarde vers où on va faire rediriger le formulaire
 		$target = $args['target'];
 
-		if($target == "innovation1Classement"){
-			$title = "Veuillez choisir un centre";
-			$subtitle = "Afin de connaitre son classement par nombre de doses injectées par rapport aux autres centres.";
-		}else if($target == "innovation2Localisation"){
-			$title = "Veuillez choisir le centre de vaccination";
-			$subtitle = "Vous allez pouvoir voir sa localisation sur une carte (Google Map)";
-		}
-		
-		
+		//on définit les titres de la pages
+		$title = "Veuillez choisir un centre";
+		$subtitle = "Afin de connaitre son classement par nombre de doses injectées par rapport aux autres centres.";		
+		//on récupère l'ensemble des centres
 		$results = ModelCentre::getAll();
+
 		// ----- Construction chemin de la vue
 		include 'config.php';
 		$vue = $root . '/app/view/innovation/viewSelectCentre.php';
@@ -27,6 +24,7 @@ class ControllerInnovation {
 
 	public static function innovation1Classement() {
 		$centre_id = $_GET["idCentre"];
+		//on définit les titres de la pages
 		$title = "Informations sur le nombre d'injections des vaccins aux patients";
 		$subtitle = "Le classement du nombre total d'injections par type de vaccin aux patients par rapport aux autres centres est présenté dans ce tableau.";
 
@@ -37,7 +35,6 @@ class ControllerInnovation {
 		//et on ne garde dans $results que les informations pour le centre souhaité
 		$numLigne = 1;
 		$precedentVaccinLabel = "";
-		$i=0;
 		$indexResults = 0;
 		$results = [];
 		foreach ($tableauSommeInjection as $tuple) {
@@ -46,12 +43,11 @@ class ControllerInnovation {
 				$precedentVaccinLabel = $tuple["vaccinLabel"];
 			}
 			if($tuple["centreId"] == $centre_id){
-				$results[$indexResults] = $tableauSommeInjection[$i]; 
+				$results[$indexResults] = $tuple; 
 				$results[$indexResults]["classement"] = $numLigne;
 				$indexResults++;
 			}
 			$numLigne++;
-			$i++;
 		}
 
 		if(empty($results)){
