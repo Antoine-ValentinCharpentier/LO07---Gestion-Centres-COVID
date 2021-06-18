@@ -71,9 +71,10 @@ switch ($action) {
     //mes innovations
     case 'innovationSelectCentre':
    	case 'innovation1Classement':
+   	case 'innovation2Localisation':
     	ControllerInnovation::$action($args);
     	break;
-    	
+
 	// Tache par défaut
 	default:
 		$action = "vaccinAccueil";

@@ -8,8 +8,14 @@ class ControllerInnovation {
 	public static function innovationSelectCentre($args) {
 		$target = $args['target'];
 
-		$title = "Veuillez choisir un centre";
-		$subtitle = "Afin de connaitre son classement par nombre de doses injectées par rapport aux autres centres.";
+		if($target == "innovation1Classement"){
+			$title = "Veuillez choisir un centre";
+			$subtitle = "Afin de connaitre son classement par nombre de doses injectées par rapport aux autres centres.";
+		}else if($target == "innovation2Localisation"){
+			$title = "Veuillez choisir le centre de vaccination";
+			$subtitle = "Vous allez pouvoir voir sa localisation sur une carte (Google Map)";
+		}
+		
 		
 		$results = ModelCentre::getAll();
 		// ----- Construction chemin de la vue
@@ -19,7 +25,7 @@ class ControllerInnovation {
 		require ($vue);
 	}
 
-	public static function innovation1Classement($centre_id) {
+	public static function innovation1Classement() {
 		$centre_id = $_GET["idCentre"];
 		$title = "Informations sur le nombre d'injections des vaccins aux patients";
 		$subtitle = "Le classement du nombre total d'injections par type de vaccin aux patients par rapport aux autres centres est présenté dans ce tableau.";
@@ -55,6 +61,18 @@ class ControllerInnovation {
 		// ----- Construction chemin de la vue
 		include 'config.php';
 		$vue = $root . '/app/view/innovation/viewInnovation1.php';
+		require ($vue);
+	}
+
+	public static function innovation2Localisation() {
+		$results = ModelCentre::getAll();
+
+		$title = "Accéder à la localisation d'un centre de vaccination via Google Map";
+		$subtitle = "Cliquez sur un lien pour ouvrir la carte avec le centre";
+
+		// ----- Construction chemin de la vue
+		include 'config.php';
+		$vue = $root . '/app/view/innovation/viewInnovation2.php';
 		require ($vue);
 	}
 
