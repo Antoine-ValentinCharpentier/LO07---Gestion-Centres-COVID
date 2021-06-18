@@ -76,6 +76,16 @@ class ControllerInnovation {
 		require ($vue);
 	}
 
+	public static function innovation3Bilan() {
+		$nbPersonneNoneVaccine = ModelInnovation::nombrePersonneNonVaccine();
+		$results = ModelInnovation::combienDosesVaccinUtiliseParTypeVaccin();
+
+		// ----- Construction chemin de la vue
+		include 'config.php';
+		$vue = $root . '/app/view/innovation/viewInnovation3.php';
+		require ($vue);
+	}
+
 
 }
 ?>

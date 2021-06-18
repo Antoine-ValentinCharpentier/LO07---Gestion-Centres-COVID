@@ -72,6 +72,7 @@ switch ($action) {
     case 'innovationSelectCentre':
    	case 'innovation1Classement':
    	case 'innovation2Localisation':
+   	case 'innovation3Bilan':
     	ControllerInnovation::$action($args);
     	break;
 
