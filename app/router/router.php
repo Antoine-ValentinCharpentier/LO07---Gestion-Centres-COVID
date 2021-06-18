@@ -63,6 +63,7 @@ switch ($action) {
 
     case 'rdvSelectPatient':
     case 'rdvSelectedPatient':
+    case 'rdvSelectedCentre':
 		ControllerRDV::$action($args);
         break;
 

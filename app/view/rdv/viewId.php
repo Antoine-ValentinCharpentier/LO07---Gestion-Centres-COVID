@@ -17,12 +17,19 @@ require ($root . '/outil/lo07_biblio_formulaire_bt.php');
         echo "<h3>$title</h3>";
       }
 
+      if(isset($subtitle)){
+        echo "<p>$subtitle</p>";
+      }
+
       //afichage du formulaire
       form_begin('form_rdv_select_patient', 'get', 'router.php');
-      form_input_hidden('action','rdvSelectedPatient');
+      //bouton invisible permettant de définir vers où le formulaire doit repartir
+      form_input_hidden('action',$target);
+      //bouton invisible permettant de garder en mémoire l'id du patient quand la personne choisit le centre
+      form_input_hidden('memoireIdPatient',$idPatient);
       
       //champ de sélection parmit les différents centres
-      form_select_table('Liste des patients', 'idPatient', '', 4, $results);
+      form_select_table('', $selectName, '', 4, $results);
 
       //bouton submit du formulaire
       form_input_submit("Accéder");

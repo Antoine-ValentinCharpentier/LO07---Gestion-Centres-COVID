@@ -58,6 +58,38 @@ class ModelCentre {
     }
   }
 
+  // retourne une liste avec tout les centres ayant au minimum 1 doses de vaccin
+  public static function getAllWithDoses() {
+    try {
+      $database = Model::getInstance();
+      $query = "SELECT C.* FROM stock S, centre C where S.centre_id = C.id AND S.quantite != 0 GROUP BY centre_id ORDER BY SUM(S.quantite) DESC";
+      $statement = $database->prepare($query);
+      $statement->execute();
+      $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCentre");
+      return $results;
+    } catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return NULL;
+    }
+  }
+
+  // retourne une liste avec tout les centres ayant au minimum 1 doses d'un vaccin particulier
+  public static function getAllWithSpecificVaccin($id) {
+    try {
+      $database = Model::getInstance();
+      $query = "SELECT C.* FROM stock S, centre C where S.centre_id = C.id AND S.vaccin_id = :vaccin_id AND S.quantite != 0 GROUP BY centre_id ORDER BY SUM(S.quantite) DESC";
+      $statement = $database->prepare($query);
+      $statement->execute([
+        'vaccin_id' => $id
+      ]);
+      $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelCentre");
+      return $results;
+    } catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return NULL;
+    }
+  }
+
   //permet d'insérer un nouveau tuple centre dans la table centre
   public static function insert($label, $adresse) {
     try {

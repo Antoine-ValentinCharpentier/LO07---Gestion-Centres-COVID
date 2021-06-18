@@ -77,6 +77,42 @@ class ModelVaccin {
     }
   }
 
+  //fonction qui retourne le vaccin avec un label précis
+  public static function getVaccinById($id) {
+    try {
+      $database = Model::getInstance();
+      $query = "select * from vaccin where id = :id";
+      $statement = $database->prepare($query);
+      $statement->execute([
+        'id' => $id
+      ]);
+      $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelVaccin");
+
+      return $results[0];
+    } catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return NULL;
+    }
+  }
+
+  //fonction qui permet de récupérer l'enssemble des vaccins présent dans les plus grande quantité d'un centre donné
+  public static function getAllVaccinFromCenterLargeAmount($idCentre) {
+    try {
+      $database = Model::getInstance();
+      $query = "SELECT V.* FROM stock S, centre C, vaccin V where V.id = S.vaccin_id AND C.id = S.centre_id AND S.centre_id = :id_centre AND S.quantite != 0 AND S.quantite = (SELECT MAX(quantite) FROM stock WHERE centre_id = :id_centre)";
+      $statement = $database->prepare($query);
+      $statement->execute([
+        'id_centre' => $idCentre
+      ]);
+      $results = $statement->fetchAll(PDO::FETCH_CLASS, "ModelVaccin");
+
+      return $results;
+    } catch (PDOException $e) {
+      printf("%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+      return NULL;
+    }
+  }
+
   //permet d'insérer un nouveau tuple vaccin dans la table vaccin
   public static function insert($label, $doses) {
     try {
