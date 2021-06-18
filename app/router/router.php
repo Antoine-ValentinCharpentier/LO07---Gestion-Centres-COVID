@@ -8,6 +8,7 @@ require ('../controller/ControllerPatient.php');
 require ('../controller/ControllerStock.php');
 require ('../controller/ControllerRDV.php');
 require ('../controller/ControllerInnovation.php');
+require ('../controller/ControllerDocumentation.php');
 
 // --- récupération de l'action passée dans l'URL
 $query_string = $_SERVER['QUERY_STRING'];
@@ -74,6 +75,10 @@ switch ($action) {
    	case 'innovation2Localisation':
    	case 'innovation3Bilan':
     	ControllerInnovation::$action($args);
+    	break;
+
+    case 'documentationAvis':
+    	ControllerDocumentation::$action($args);
     	break;
 
 	// Tache par défaut
